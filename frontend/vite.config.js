@@ -15,6 +15,11 @@ export default defineConfig({
     server: {
         port: 5173,
         proxy: (function () {
+            // Proxy API + websocket calls to the Spring Boot backend during development.
+            // NOTE: use 127.0.0.1, NOT localhost. On Node 17+ `localhost` can resolve to
+            // IPv6 (::1) first, but Spring Boot binds to IPv4 by default — the mismatch
+            // surfaces as ECONNREFUSED / "Network Error" in the browser on login while
+            // http://localhost:8080 still opens fine directly. 127.0.0.1 forces IPv4.
             var target = process.env.VITE_PROXY_TARGET || 'http://127.0.0.1:8080';
             // Turn the noisy, repeating "[vite] ws proxy socket error: read ECONNRESET"
             // stack trace into a single readable hint. This error just means the backend

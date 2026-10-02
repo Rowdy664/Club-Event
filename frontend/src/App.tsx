@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 
 import { RootLayout } from '@/components/layout/RootLayout';
 import { AppLayout } from '@/components/layout/AppLayout';
@@ -86,7 +87,9 @@ const NotFoundPage = lazy(() => import('@/pages/system/NotFoundPage'));
 
 export default function App() {
   return (
-    <Suspense fallback={<FullPageLoader />}>
+    <>
+      <Analytics />
+      <Suspense fallback={<FullPageLoader />}>
       <Routes>
         {/* ===================== public + auth shell ===================== */}
         <Route element={<RootLayout />}>
@@ -201,6 +204,7 @@ export default function App() {
           </Route>
         </Route>
       </Routes>
-    </Suspense>
+      </Suspense>
+    </>
   );
 }
