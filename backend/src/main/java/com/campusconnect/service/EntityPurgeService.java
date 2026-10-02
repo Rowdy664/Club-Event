@@ -6,17 +6,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-<<<<<<< HEAD
 import java.util.regex.Pattern;
 
 /**
  * Hard-deletes an event, a club or a user together with every row that
  * references it.
-=======
-
-/**
- * Hard-deletes an event or a club together with every row that references it.
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
  *
  * <p>The schema is created with {@code ddl-auto=update}, which never emits
  * {@code ON DELETE CASCADE}, and the JPA associations intentionally carry no
@@ -33,12 +27,9 @@ import java.util.regex.Pattern;
 @Service
 public class EntityPurgeService {
 
-<<<<<<< HEAD
     /** Guards catalog-derived identifiers before they are ever placed in SQL text. */
     private static final Pattern SAFE_IDENTIFIER = Pattern.compile("^[A-Za-z0-9_]+$");
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     @PersistenceContext
     private EntityManager em;
 
@@ -58,7 +49,6 @@ public class EntityPurgeService {
                 + "(select c.id from Competition c where c.event.id = :id)", eventId);
         exec("delete from Competition c where c.event.id = :id", eventId);
 
-<<<<<<< HEAD
         // Volunteer subtree: event-scoped rows -> volunteers.
         exec("delete from VolunteerAssignment a where a.event.id = :id", eventId);
         exec("delete from VolunteerAttendance a where a.event.id = :id", eventId);
@@ -76,12 +66,6 @@ public class EntityPurgeService {
                     + "(select id from volunteers where event_id = :id)", eventId);
             execNative("delete from volunteers where event_id = :id", eventId);
         }
-=======
-        // Volunteer subtree: tasks -> volunteers
-        exec("delete from VolunteerTask t where t.volunteer.id in "
-                + "(select v.id from Volunteer v where v.event.id = :id)", eventId);
-        exec("delete from Volunteer v where v.event.id = :id", eventId);
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 
         // Rows that reference a registration must go before the registrations.
         exec("delete from Attendance a where a.event.id = :id", eventId);
@@ -107,7 +91,6 @@ public class EntityPurgeService {
         exec("delete from Comment c where c.event.id = :id", eventId);
 
         exec("delete from Event e where e.id = :id", eventId);
-<<<<<<< HEAD
 
         // Bulk JPQL deletes bypass the persistence context, so a managed copy of any row
         // deleted above (e.g. the caller's just-loaded Event) may linger detached-but-present.
@@ -152,8 +135,6 @@ public class EntityPurgeService {
         exec("delete from Judge j where j.competition.id = :id", competitionId);
         exec("delete from Competition c where c.id = :id", competitionId);
         em.clear();
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     }
 
     /**
@@ -169,7 +150,6 @@ public class EntityPurgeService {
             purgeEvent(eventId);
         }
 
-<<<<<<< HEAD
         // Club-scoped volunteer roster: dependent rows -> volunteer profiles.
         // Volunteers belong to the club (not an event), so purging the events
         // above does not remove them; clear their remaining children first.
@@ -181,15 +161,12 @@ public class EntityPurgeService {
                 + "(select v.id from Volunteer v where v.club.id = :id)", clubId);
         exec("delete from Volunteer v where v.club.id = :id", clubId);
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
         exec("delete from ClubMember cm where cm.club.id = :id", clubId);
         exec("delete from ClubFollow cf where cf.club.id = :id", clubId);
         exec("delete from Media m where m.club.id = :id", clubId);
         exec("delete from Announcement a where a.club.id = :id", clubId);
 
         exec("delete from Club c where c.id = :id", clubId);
-<<<<<<< HEAD
         em.clear();
     }
 
@@ -290,14 +267,11 @@ public class EntityPurgeService {
         clearRemainingReferences("users", userId);
         exec("delete from User u where u.id = :id", userId);
         em.clear();
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     }
 
     private void exec(String jpql, Long id) {
         em.createQuery(jpql).setParameter("id", id).executeUpdate();
     }
-<<<<<<< HEAD
 
     /**
      * Neutralise every remaining row that references {@code parentTable(id)} via a
@@ -381,6 +355,4 @@ public class EntityPurgeService {
                                 .getSingleResult();
                 return count.longValue() > 0;
         }
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 }

@@ -2,10 +2,7 @@ package com.campusconnect.repository;
 
 import com.campusconnect.entity.Score;
 import org.springframework.data.jpa.repository.JpaRepository;
-<<<<<<< HEAD
 import org.springframework.data.jpa.repository.Modifying;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -22,12 +19,9 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
     Optional<Score> findByRoundIdAndJudgeIdAndParticipantId(Long roundId, Long judgeId, Long participantId);
 
     Optional<Score> findByRoundIdAndJudgeIdAndTeamId(Long roundId, Long judgeId, Long teamId);
-<<<<<<< HEAD
 
     /** Bulk-remove every score cast by a judge (used when a judge is removed). */
     @Modifying
     @Query("delete from Score s where s.judge.id = :judgeId")
     void deleteByJudgeId(@Param("judgeId") Long judgeId);
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 }

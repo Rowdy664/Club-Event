@@ -157,7 +157,6 @@ public class EventController {
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.success("Schedule item added.", created));
     }
 
-<<<<<<< HEAD
     @Operation(summary = "Update a schedule item (active club members)")
     @PutMapping("/{id}/schedule/{scheduleId}")
     public ApiResponse<EventScheduleResponse> updateSchedule(
@@ -169,8 +168,6 @@ public class EventController {
                 eventService.updateSchedule(principal.getId(), id, scheduleId, request));
     }
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     @Operation(summary = "Delete a schedule item (active club members)")
     @DeleteMapping("/{id}/schedule/{scheduleId}")
     public ApiResponse<Void> deleteSchedule(@AuthenticationPrincipal UserPrincipal principal,

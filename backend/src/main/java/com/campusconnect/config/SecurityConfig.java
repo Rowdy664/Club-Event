@@ -115,7 +115,6 @@ public class SecurityConfig {
 
     @Bean
     public RoleHierarchy roleHierarchy() {
-<<<<<<< HEAD
         // VOLUNTEER sits outside the coordinator management chain: it inherits
         // STUDENT (browse/register/attend) but grants no CLUB_MEMBER/coordinator
         // powers. Volunteer-only endpoints are gated with hasRole('VOLUNTEER').
@@ -124,12 +123,6 @@ public class SecurityConfig {
                 "ROLE_CLUB_COORDINATOR > ROLE_CLUB_MEMBER\n" +
                 "ROLE_CLUB_MEMBER > ROLE_STUDENT\n" +
                 "ROLE_VOLUNTEER > ROLE_STUDENT");
-=======
-        return RoleHierarchyImpl.fromHierarchy(
-                "ROLE_ADMIN > ROLE_CLUB_COORDINATOR\n" +
-                "ROLE_CLUB_COORDINATOR > ROLE_CLUB_MEMBER\n" +
-                "ROLE_CLUB_MEMBER > ROLE_STUDENT");
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     }
 
     /** Applies the role hierarchy to @PreAuthorize method security. */

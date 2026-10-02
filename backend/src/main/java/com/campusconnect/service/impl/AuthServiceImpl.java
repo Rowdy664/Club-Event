@@ -1,10 +1,7 @@
 package com.campusconnect.service.impl;
 
 import com.campusconnect.dto.request.ForgotPasswordRequest;
-<<<<<<< HEAD
 import com.campusconnect.dto.request.LoginOtpRequest;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import com.campusconnect.dto.request.LoginRequest;
 import com.campusconnect.dto.request.RegisterRequest;
 import com.campusconnect.dto.request.ResetPasswordRequest;
@@ -25,10 +22,7 @@ import com.campusconnect.security.LoginRateLimiter;
 import com.campusconnect.security.UserPrincipal;
 import com.campusconnect.service.AuthService;
 import com.campusconnect.service.EmailService;
-<<<<<<< HEAD
 import com.campusconnect.service.whatsapp.WhatsAppResolver;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,10 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-<<<<<<< HEAD
 import java.util.Optional;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import java.util.UUID;
 
 @Service
@@ -64,10 +55,7 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final EmailService emailService;
     private final LoginRateLimiter loginRateLimiter;
-<<<<<<< HEAD
     private final WhatsAppResolver whatsAppResolver;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 
     @Value("${app.frontend.base-url}")
     private String frontendBaseUrl;
@@ -151,7 +139,6 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-<<<<<<< HEAD
     public AuthResponse requestLoginOtp(LoginOtpRequest request, String clientKey) {
         String identifier = request.identifier().trim();
 
@@ -180,8 +167,6 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     public AuthResponse verifyOtp(VerifyOtpRequest request, String clientKey) {
         String challengeKey = "otp:" + request.challengeToken();
         long retryAfter = loginRateLimiter.retryAfterSeconds(challengeKey);
@@ -232,7 +217,6 @@ public class AuthServiceImpl implements AuthService {
     }
 
     /**
-<<<<<<< HEAD
      * Post-password 2FA step. Delegates to the shared challenge issuer.
      */
     private AuthResponse startTwoFactorChallenge(User user) {
@@ -249,12 +233,6 @@ public class AuthServiceImpl implements AuthService {
      * line until Twilio credentials are configured), so a messaging outage never blocks sign-in.
      */
     private AuthResponse issueOtpChallenge(User user, String emailSubject) {
-=======
-     * Generates a fresh 6-digit OTP, stores only its hash + expiry + a new opaque
-     * challenge token, emails the code, and returns the challenge to the client.
-     */
-    private AuthResponse startTwoFactorChallenge(User user) {
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
         String code = String.format("%06d", RANDOM.nextInt(1_000_000));
         String challengeToken = UUID.randomUUID().toString();
         user.setOtpCodeHash(passwordEncoder.encode(code));
@@ -263,7 +241,6 @@ public class AuthServiceImpl implements AuthService {
         user.setOtpChallengeToken(challengeToken);
         userRepository.save(user);
 
-<<<<<<< HEAD
         emailService.send(user.getEmail(), emailSubject,
                 ("Hi %s,\n\nYour CampusConnect verification code is: %s\n\n"
                         + "It expires in %d minutes. If you didn't try to sign in, you can ignore this "
@@ -274,14 +251,6 @@ public class AuthServiceImpl implements AuthService {
                 "Your CampusConnect sign-in code is " + code
                         + ". It expires in " + OTP_TTL_MINUTES + " minutes.");
 
-=======
-        emailService.send(user.getEmail(), "Your CampusConnect sign-in code",
-                ("Hi %s,\n\nYour CampusConnect verification code is: %s\n\n"
-                        + "It expires in %d minutes. If you didn't try to sign in, you can ignore this email "
-                        + "and consider changing your password.")
-                        .formatted(user.getFullName(), code, OTP_TTL_MINUTES));
-
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
         return AuthResponse.challenge(challengeToken);
     }
 

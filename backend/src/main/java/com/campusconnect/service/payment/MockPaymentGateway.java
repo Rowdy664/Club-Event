@@ -30,13 +30,8 @@ public class MockPaymentGateway implements PaymentGateway {
     }
 
     @Override
-<<<<<<< HEAD
     public GatewayChargeResult verify(GatewayVerifyRequest request) {
         return new GatewayChargeResult(request.providerReference(), PaymentStatus.SUCCESS, "Verified by mock gateway");
-=======
-    public GatewayChargeResult verify(String providerReference) {
-        return new GatewayChargeResult(providerReference, PaymentStatus.SUCCESS, "Verified by mock gateway");
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     }
 
     @Override

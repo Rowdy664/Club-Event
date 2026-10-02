@@ -97,15 +97,12 @@ public class AttendanceServiceImpl implements AttendanceService {
         if (status == RegistrationStatus.WAITLISTED) {
             throw new BadRequestException("This participant is waitlisted and cannot be checked in.");
         }
-<<<<<<< HEAD
         // For a paid event, a seat is only valid once payment has cleared (status CONFIRMED). This
         // is defence-in-depth: the ticket UI is already gated on payment, but block check-in too.
         if (event.isPaidEvent() && event.getFee() != null && event.getFee().signum() > 0
                 && status != RegistrationStatus.CONFIRMED) {
             throw new BadRequestException("This participant has not completed payment for this event.");
         }
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
         if (attendanceRepository.existsByRegistrationId(registration.getId())) {
             throw new ConflictException("This participant has already been checked in.");
         }

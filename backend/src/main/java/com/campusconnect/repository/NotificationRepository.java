@@ -21,12 +21,9 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
     @Modifying
     @Query("update Notification n set n.read = true where n.recipient.id = :recipientId and n.read = false")
     int markAllRead(@Param("recipientId") Long recipientId);
-<<<<<<< HEAD
 
     /** Bulk-delete every notification owned by a user (clear all). Returns the number removed. */
     @Modifying
     @Query("delete from Notification n where n.recipient.id = :recipientId")
     int deleteByRecipientId(@Param("recipientId") Long recipientId);
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 }

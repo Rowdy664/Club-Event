@@ -1,15 +1,10 @@
 package com.campusconnect.entity;
 
-<<<<<<< HEAD
 import com.campusconnect.entity.enums.VolunteerStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-=======
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
@@ -22,7 +17,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-<<<<<<< HEAD
 /**
  * A user's volunteer profile within a single club. A user may volunteer for
  * more than one club, so uniqueness is scoped to (user, club). The coordinator
@@ -37,13 +31,6 @@ import lombok.Setter;
                 @Index(name = "idx_vol_status", columnList = "status")
         },
         uniqueConstraints = @UniqueConstraint(name = "uk_vol_user_club", columnNames = {"user_id", "club_id"})
-=======
-@Entity
-@Table(
-        name = "volunteers",
-        indexes = @Index(name = "idx_volunteer_event", columnList = "event_id"),
-        uniqueConstraints = @UniqueConstraint(name = "uk_volunteer_event_user", columnNames = {"event_id", "user_id"})
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 )
 @Getter
 @Setter
@@ -53,7 +40,6 @@ import lombok.Setter;
 public class Volunteer extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-<<<<<<< HEAD
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -83,19 +69,4 @@ public class Volunteer extends BaseEntity {
     @Column(name = "volunteer_lead", nullable = false)
     @Builder.Default
     private boolean volunteerLead = false;
-=======
-    @JoinColumn(name = "event_id", nullable = false)
-    private Event event;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-    @Builder.Default
-    @Column(nullable = false)
-    private boolean approved = false;
-
-    @Column(length = 120)
-    private String role;
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 }

@@ -14,7 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByEmail(String email);
 
-<<<<<<< HEAD
     /**
      * Passwordless login by phone. Phone is not a unique column (it is optional and unverified),
      * so this returns the earliest-created match deterministically rather than throwing on
@@ -22,8 +21,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
      */
     Optional<User> findFirstByPhoneOrderByIdAsc(String phone);
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     boolean existsByEmail(String email);
 
     Optional<User> findByVerificationToken(String verificationToken);

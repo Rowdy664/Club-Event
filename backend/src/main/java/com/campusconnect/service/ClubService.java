@@ -16,12 +16,9 @@ public interface ClubService {
 
     void deactivate(Long userId, Long clubId);
 
-<<<<<<< HEAD
     /** Bring a previously-deactivated club back online. Coordinator-scoped, mirrors {@link #deactivate}. */
     void reactivate(Long userId, Long clubId);
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     ClubResponse getById(Long clubId, Long viewerId);
 
     PageResponse<ClubResponse> search(String q, String category, Boolean active, Long viewerId, Pageable pageable);

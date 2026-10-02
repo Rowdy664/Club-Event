@@ -13,7 +13,6 @@ public interface PaymentGateway {
     /** Unique provider key, e.g. {@code "mock"}, {@code "stripe"}, {@code "razorpay"}. */
     String provider();
 
-<<<<<<< HEAD
     /**
      * Attempt to charge the customer. Synchronous gateways (e.g. the mock) return a terminal
      * {@code SUCCESS}/{@code FAILED} result immediately; gateways with a hosted browser checkout
@@ -27,13 +26,6 @@ public interface PaymentGateway {
      * — they validate the supplied parameters against the provider before returning {@code SUCCESS}.
      */
     GatewayChargeResult verify(GatewayVerifyRequest request);
-=======
-    /** Attempt to charge the customer. */
-    GatewayChargeResult charge(GatewayChargeRequest request);
-
-    /** Re-check the status of a previously created charge (e.g. after a webhook or redirect). */
-    GatewayChargeResult verify(String providerReference);
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 
     /**
      * Refund a previously successful charge. Implementations should be idempotent where the

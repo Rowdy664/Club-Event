@@ -33,10 +33,7 @@ import com.campusconnect.repository.TeamRepository;
 import com.campusconnect.repository.UserRepository;
 import com.campusconnect.security.ClubAccess;
 import com.campusconnect.service.CompetitionService;
-<<<<<<< HEAD
 import com.campusconnect.service.EntityPurgeService;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import com.campusconnect.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -65,10 +62,7 @@ public class CompetitionServiceImpl implements CompetitionService {
     private final ClubAccess clubAccess;
     private final SimpMessagingTemplate messagingTemplate;
     private final NotificationService notificationService;
-<<<<<<< HEAD
     private final EntityPurgeService entityPurgeService;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 
     @Override
     @Transactional
@@ -90,7 +84,6 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     @Transactional
-<<<<<<< HEAD
     public void deleteCompetition(Long actingUserId, Long competitionId) {
         Competition competition = getCompetition(competitionId);
         requireEventCoordinator(competition, actingUserId);
@@ -101,8 +94,6 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     @Transactional
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     public CompetitionResponse updateStatus(Long actingUserId, Long competitionId, CompetitionStatus status) {
         Competition competition = getCompetition(competitionId);
         requireEventCoordinator(competition, actingUserId);
@@ -209,14 +200,11 @@ public class CompetitionServiceImpl implements CompetitionService {
         if (judge.getCompetition() == null || !judge.getCompetition().getId().equals(competitionId)) {
             throw new BadRequestException("That judge does not belong to this competition.");
         }
-<<<<<<< HEAD
         // Score.judge is a NOT NULL FK with no ON DELETE CASCADE, so deleting a
         // judge who has already scored would throw a data-integrity violation
         // (surfaced as a 409). Removing a judge invalidates their scoring, so
         // clear their scores first, then remove the judge.
         scoreRepository.deleteByJudgeId(judgeId);
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
         judgeRepository.delete(judge);
     }
 

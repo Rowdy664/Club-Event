@@ -21,7 +21,6 @@ public interface RegistrationService {
     byte[] ticketQr(Long userId, Long registrationId);
 
     /**
-<<<<<<< HEAD
      * Send a one-time verification code for a ticket to its owner (email + WhatsApp), so they can
      * prove the ticket is genuinely theirs. Owner-only; the ticket must be issued (active seat).
      */
@@ -34,8 +33,6 @@ public interface RegistrationService {
     RegistrationResponse confirmTicketVerification(Long userId, Long registrationId, String code);
 
     /**
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
      * Move waitlisted attendees into any free seats for the given event, oldest first, notifying each
      * promoted attendee. Called when a seat is released or an event's capacity is raised. No-op when the
      * event has no waitlist or no free seats.

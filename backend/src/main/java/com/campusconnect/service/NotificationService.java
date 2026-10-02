@@ -29,7 +29,6 @@ public interface NotificationService {
 
     void markAllRead(Long userId);
 
-<<<<<<< HEAD
     /** Flip a notification back to unread. Owner-only; throws if it isn't the caller's. */
     void markUnread(Long userId, Long notificationId);
 
@@ -39,8 +38,6 @@ public interface NotificationService {
     /** Permanently delete every notification owned by the caller (clear all). */
     void deleteAll(Long userId);
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     /** The user's email notification preferences, creating all-on defaults on first access. */
     NotificationPreferenceResponse getPreferences(Long userId);
 

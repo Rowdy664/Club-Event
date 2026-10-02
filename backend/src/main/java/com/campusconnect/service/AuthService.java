@@ -1,10 +1,7 @@
 package com.campusconnect.service;
 
 import com.campusconnect.dto.request.ForgotPasswordRequest;
-<<<<<<< HEAD
 import com.campusconnect.dto.request.LoginOtpRequest;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import com.campusconnect.dto.request.LoginRequest;
 import com.campusconnect.dto.request.RegisterRequest;
 import com.campusconnect.dto.request.ResetPasswordRequest;
@@ -22,7 +19,6 @@ public interface AuthService {
      */
     AuthResponse login(LoginRequest request, String clientKey);
 
-<<<<<<< HEAD
     /**
      * Passwordless login: issue a one-time code to the account matching {@code identifier}
      * (email or phone), delivered by email and — when configured — WhatsApp. Always returns a
@@ -31,8 +27,6 @@ public interface AuthService {
      */
     AuthResponse requestLoginOtp(LoginOtpRequest request, String clientKey);
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     /** Completes a two-factor login by validating the emailed OTP against the challenge. */
     AuthResponse verifyOtp(VerifyOtpRequest request, String clientKey);
 

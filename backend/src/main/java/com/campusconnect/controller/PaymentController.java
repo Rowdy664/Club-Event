@@ -2,11 +2,8 @@ package com.campusconnect.controller;
 
 import com.campusconnect.common.ApiResponse;
 import com.campusconnect.dto.request.PaymentInitiateRequest;
-<<<<<<< HEAD
 import com.campusconnect.dto.request.PaymentVerifyRequest;
 import com.campusconnect.dto.response.PaymentConfigResponse;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import com.campusconnect.dto.response.PaymentResponse;
 import com.campusconnect.security.UserPrincipal;
 import com.campusconnect.service.PaymentService;
@@ -24,10 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestParam;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -41,15 +35,12 @@ public class PaymentController {
 
     private final PaymentService paymentService;
 
-<<<<<<< HEAD
     @GetMapping("/config")
     @Operation(summary = "Non-secret checkout configuration for the browser (active provider + publishable key)")
     public ApiResponse<PaymentConfigResponse> config() {
         return ApiResponse.success(paymentService.config());
     }
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     @PostMapping("/initiate")
     @Operation(summary = "Pay the registration fee for a paid event")
     public ApiResponse<PaymentResponse> initiate(@AuthenticationPrincipal UserPrincipal principal,
@@ -57,7 +48,6 @@ public class PaymentController {
         return ApiResponse.success("Payment processed", paymentService.initiate(principal.getId(), request));
     }
 
-<<<<<<< HEAD
     @PostMapping("/verify")
     @Operation(summary = "Confirm a payment after a client-side checkout (e.g. Razorpay) returns")
     public ApiResponse<PaymentResponse> verify(@AuthenticationPrincipal UserPrincipal principal,
@@ -65,8 +55,6 @@ public class PaymentController {
         return ApiResponse.success("Payment confirmed", paymentService.verify(principal.getId(), request));
     }
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     @GetMapping("/me")
     @Operation(summary = "List my payments")
     public ApiResponse<List<PaymentResponse>> myPayments(@AuthenticationPrincipal UserPrincipal principal) {
@@ -104,7 +92,6 @@ public class PaymentController {
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(pdf);
     }
-<<<<<<< HEAD
 
     @GetMapping("/receipts.zip")
     @Operation(summary = "Download PDF receipts for several completed payments as a ZIP "
@@ -117,6 +104,4 @@ public class PaymentController {
                 .contentType(MediaType.parseMediaType("application/zip"))
                 .body(zip);
     }
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 }

@@ -78,7 +78,6 @@ public class CompetitionController {
                 competitionService.create(principal.getId(), request));
     }
 
-<<<<<<< HEAD
     @DeleteMapping("/{id}")
     @SecurityRequirement(name = "bearerAuth")
     @Operation(summary = "Delete a competition and all its rounds, judges and scores (club coordinator only)")
@@ -88,8 +87,6 @@ public class CompetitionController {
         return ApiResponse.message("Competition deleted");
     }
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     @PatchMapping("/{id}/status")
     @SecurityRequirement(name = "bearerAuth")
     @Operation(summary = "Update a competition's status (club coordinator only)")

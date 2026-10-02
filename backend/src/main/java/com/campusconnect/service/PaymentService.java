@@ -1,18 +1,14 @@
 package com.campusconnect.service;
 
 import com.campusconnect.dto.request.PaymentInitiateRequest;
-<<<<<<< HEAD
 import com.campusconnect.dto.request.PaymentVerifyRequest;
 import com.campusconnect.dto.response.PaymentConfigResponse;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import com.campusconnect.dto.response.PaymentResponse;
 
 import java.util.List;
 
 public interface PaymentService {
 
-<<<<<<< HEAD
     /** Non-secret checkout configuration for the browser (active provider + publishable key). */
     PaymentConfigResponse config();
 
@@ -26,11 +22,6 @@ public interface PaymentService {
      */
     PaymentResponse verify(Long userId, PaymentVerifyRequest request);
 
-=======
-    /** Initiate (and, for synchronous providers like the mock, complete) payment for a registration. */
-    PaymentResponse initiate(Long userId, PaymentInitiateRequest request);
-
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     PaymentResponse getMyPayment(Long userId, Long paymentId);
 
     List<PaymentResponse> myPayments(Long userId);
@@ -50,7 +41,6 @@ public interface PaymentService {
      * paying user, or to a platform admin / coordinator of the event's owning club.
      */
     byte[] renderReceipt(Long actingUserId, Long paymentId);
-<<<<<<< HEAD
 
     /**
      * Bundle PDF receipts for several completed payments into a single ZIP. Each payment is
@@ -58,6 +48,4 @@ public interface PaymentService {
      * payments without a downloadable receipt (still pending or failed) are skipped.
      */
     byte[] renderReceiptsZip(Long actingUserId, java.util.List<Long> paymentIds);
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 }

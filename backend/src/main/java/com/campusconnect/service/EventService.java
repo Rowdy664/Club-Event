@@ -45,11 +45,8 @@ public interface EventService {
 
     EventScheduleResponse addSchedule(Long userId, Long eventId, EventScheduleRequest request);
 
-<<<<<<< HEAD
     EventScheduleResponse updateSchedule(Long userId, Long eventId, Long scheduleId, EventScheduleRequest request);
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     List<EventScheduleResponse> listSchedules(Long eventId);
 
     void deleteSchedule(Long userId, Long eventId, Long scheduleId);

@@ -27,7 +27,6 @@ import java.time.Instant;
                 @Index(name = "idx_cert_event", columnList = "event_id"),
                 @Index(name = "idx_cert_code", columnList = "certificate_code")
         },
-<<<<<<< HEAD
         uniqueConstraints = {
                 @UniqueConstraint(name = "uk_cert_code", columnNames = "certificate_code"),
                 // Belt-and-suspenders dedup: at most one certificate of a given type per user per
@@ -35,9 +34,6 @@ import java.time.Instant;
                 // constraint closes the concurrency window (e.g. auto-issue racing a manual/bulk issue).
                 @UniqueConstraint(name = "uk_cert_user_event_type", columnNames = {"user_id", "event_id", "type"})
         }
-=======
-        uniqueConstraints = @UniqueConstraint(name = "uk_cert_code", columnNames = "certificate_code")
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 )
 @Getter
 @Setter

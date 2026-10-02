@@ -11,10 +11,7 @@ import com.campusconnect.entity.Club;
 import com.campusconnect.entity.ClubFollow;
 import com.campusconnect.entity.Event;
 import com.campusconnect.entity.EventSchedule;
-<<<<<<< HEAD
 import com.campusconnect.entity.Registration;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import com.campusconnect.entity.SavedEvent;
 import com.campusconnect.entity.User;
 import com.campusconnect.entity.enums.EventStatus;
@@ -38,10 +35,7 @@ import com.campusconnect.service.NotificationService;
 import com.campusconnect.service.RegistrationService;
 import com.campusconnect.service.calendar.CalendarExport;
 import com.campusconnect.service.calendar.ICalendar;
-<<<<<<< HEAD
 import com.campusconnect.service.whatsapp.WhatsAppResolver;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -67,10 +61,7 @@ public class EventServiceImpl implements EventService {
     private final CertificateService certificateService;
     private final RegistrationService registrationService;
     private final NotificationService notificationService;
-<<<<<<< HEAD
     private final WhatsAppResolver whatsAppResolver;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     private final com.campusconnect.service.EntityPurgeService entityPurgeService;
 
     @Override
@@ -138,7 +129,6 @@ public class EventServiceImpl implements EventService {
         if (effectiveCapacity(request.capacity()) > effectiveCapacity(previousCapacity)) {
             registrationService.promoteWaitlist(eventId);
         }
-<<<<<<< HEAD
 
         // Tell everyone who's registered that the event details changed (in-app + email + WhatsApp).
         // Draft events have no registrants, so skip the fan-out for them.
@@ -148,8 +138,6 @@ public class EventServiceImpl implements EventService {
                     "Details for \"" + event.getTitle()
                             + "\" have changed. Open the event to see the latest information.");
         }
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
         return EventMapper.toResponse(event, activeRegistrations(eventId));
     }
 
@@ -158,7 +146,6 @@ public class EventServiceImpl implements EventService {
     public void delete(Long userId, Long eventId) {
         Event event = getEvent(eventId);
         clubAccess.requireCoordinator(event.getClub().getId(), userId);
-<<<<<<< HEAD
         // Always purge in dependency order. Even a draft can carry schedule items, a
         // certificate template, gallery media or announcements added during prep, and the
         // schema has no ON DELETE CASCADE — so a plain repository delete would defer the
@@ -166,16 +153,6 @@ public class EventServiceImpl implements EventService {
         // children first (no-ops cleanly when there are none) and deletes the event row
         // itself immediately. See EntityPurgeService.
         entityPurgeService.purgeEvent(eventId);
-=======
-        // A draft has no dependent data, so a direct delete is fine. Anything past
-        // draft may carry registrations/payments/certificates, so purge in order
-        // (the schema has no ON DELETE CASCADE — see EntityPurgeService).
-        if (event.getStatus() == EventStatus.DRAFT) {
-            eventRepository.delete(event);
-        } else {
-            entityPurgeService.purgeEvent(eventId);
-        }
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     }
 
     @Override
@@ -227,15 +204,12 @@ public class EventServiceImpl implements EventService {
         if (status == EventStatus.PUBLISHED && previous != EventStatus.PUBLISHED) {
             notifyFollowersOfPublishedEvent(event);
         }
-<<<<<<< HEAD
         if (status == EventStatus.CANCELLED && previous != EventStatus.CANCELLED) {
             // Alert every registered attendee that the event is off (in-app + email + WhatsApp).
             notifyRegistrantsOfChange(event, NotificationType.EVENT_CANCELLED,
                     "Event cancelled: " + event.getTitle(),
                     "\"" + event.getTitle() + "\" has been cancelled. We're sorry for the inconvenience.");
         }
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
         return EventMapper.toResponse(event, activeRegistrations(eventId));
     }
 
@@ -321,7 +295,6 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-<<<<<<< HEAD
     @Transactional
     public EventScheduleResponse updateSchedule(Long userId, Long eventId, Long scheduleId, EventScheduleRequest request) {
         Event event = getEvent(eventId);
@@ -342,8 +315,6 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     @Transactional(readOnly = true)
     public List<EventScheduleResponse> listSchedules(Long eventId) {
         getEvent(eventId);
@@ -436,7 +407,6 @@ public class EventServiceImpl implements EventService {
         }
     }
 
-<<<<<<< HEAD
     /**
      * Fan out an event change to everyone currently registered (in-app + preference-gated email via
      * {@code notifyUser}, plus a best-effort WhatsApp line). Cancelled registrations are skipped.
@@ -463,8 +433,6 @@ public class EventServiceImpl implements EventService {
         }
     }
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     /** A null or non-positive capacity means "unlimited" — treated as the largest possible seat count. */
     private static int effectiveCapacity(Integer capacity) {
         return (capacity == null || capacity <= 0) ? Integer.MAX_VALUE : capacity;

@@ -36,10 +36,7 @@ import com.campusconnect.service.CertificateService;
 import com.campusconnect.service.EmailService;
 import com.campusconnect.service.NotificationService;
 import com.campusconnect.service.QrCodeService;
-<<<<<<< HEAD
 import com.campusconnect.service.storage.LocalStorageService;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import com.lowagie.text.Document;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
@@ -98,13 +95,10 @@ public class CertificateServiceImpl implements CertificateService {
     private final QrCodeService qrCodeService;
     private final EmailService emailService;
     private final String frontendBaseUrl;
-<<<<<<< HEAD
     // Always injectable (LocalStorageService is a @Component even when S3 is active); used to resolve
     // relative "/api/files/..." background URLs to bytes without an HTTP self-call.
     private final LocalStorageService localStorageService;
     private final String localPublicBaseUrl;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 
     public CertificateServiceImpl(CertificateRepository certificateRepository,
                                   CertificateTemplateRepository certificateTemplateRepository,
@@ -117,11 +111,8 @@ public class CertificateServiceImpl implements CertificateService {
                                   NotificationService notificationService,
                                   QrCodeService qrCodeService,
                                   EmailService emailService,
-<<<<<<< HEAD
                                   LocalStorageService localStorageService,
                                   @Value("${app.storage.local.public-base-url:/api/files}") String localPublicBaseUrl,
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
                                   @Value("${app.frontend.base-url}") String frontendBaseUrl) {
         this.certificateRepository = certificateRepository;
         this.certificateTemplateRepository = certificateTemplateRepository;
@@ -134,11 +125,8 @@ public class CertificateServiceImpl implements CertificateService {
         this.notificationService = notificationService;
         this.qrCodeService = qrCodeService;
         this.emailService = emailService;
-<<<<<<< HEAD
         this.localStorageService = localStorageService;
         this.localPublicBaseUrl = localPublicBaseUrl;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
         this.frontendBaseUrl = frontendBaseUrl;
     }
 
@@ -147,11 +135,7 @@ public class CertificateServiceImpl implements CertificateService {
     public CertificateResponse issue(Long actingUserId, CertificateIssueRequest request) {
         Event event = eventRepository.findById(request.eventId())
                 .orElseThrow(() -> new ResourceNotFoundException("Event", "id", request.eventId()));
-<<<<<<< HEAD
         clubAccess.requireAdminOrCoordinator(event.getClub().getId(), actingUserId);
-=======
-        clubAccess.requireCoordinator(event.getClub().getId(), actingUserId);
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 
         User user = userRepository.findByEmail(request.email().trim().toLowerCase())
                 .orElseThrow(() -> new ResourceNotFoundException("User", "email", request.email()));
@@ -733,14 +717,9 @@ public class CertificateServiceImpl implements CertificateService {
         return (float) (height * (1.0 - clamped));
     }
 
-<<<<<<< HEAD
     private Image loadImage(String url) throws Exception {
         String trimmed = url.trim();
         // Inline data URL: decode the base64 payload directly.
-=======
-    private static Image loadImage(String url) throws Exception {
-        String trimmed = url.trim();
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
         if (trimmed.regionMatches(true, 0, "data:", 0, 5)) {
             int comma = trimmed.indexOf(',');
             if (comma < 0) {
@@ -750,7 +729,6 @@ public class CertificateServiceImpl implements CertificateService {
                     .replaceAll("\\s", ""));
             return Image.getInstance(bytes);
         }
-<<<<<<< HEAD
         // Locally-stored upload: the URL is a relative API path (e.g. "/api/files/<key>") produced by
         // LocalStorageService. Read the bytes straight from disk instead of issuing an HTTP self-call
         // (a relative URL is not absolute, so URI.toURL() would fail here anyway).
@@ -790,11 +768,6 @@ public class CertificateServiceImpl implements CertificateService {
         return localStorageService.load(key).orElse(null);
     }
 
-=======
-        return Image.getInstance(URI.create(trimmed).toURL());
-    }
-
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     private static Color colorOf(String hex, Color fallback) {
         if (hex == null || !hex.matches("^#[0-9a-fA-F]{6}$")) {
             return fallback;

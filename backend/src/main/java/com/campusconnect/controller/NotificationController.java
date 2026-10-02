@@ -16,10 +16,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.DeleteMapping;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -79,7 +76,6 @@ public class NotificationController {
         return ApiResponse.message("All notifications marked as read");
     }
 
-<<<<<<< HEAD
     @PostMapping("/{id}/unread")
     @Operation(summary = "Mark a notification as unread")
     public ApiResponse<Void> markUnread(@AuthenticationPrincipal UserPrincipal principal,
@@ -103,8 +99,6 @@ public class NotificationController {
         return ApiResponse.message("All notifications cleared");
     }
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     @GetMapping("/preferences")
     @Operation(summary = "Get my email notification preferences")
     public ApiResponse<NotificationPreferenceResponse> getPreferences(

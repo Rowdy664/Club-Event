@@ -17,12 +17,9 @@ public interface CompetitionService {
 
     CompetitionResponse create(Long actingUserId, CompetitionRequest request);
 
-<<<<<<< HEAD
     /** Delete a competition together with its rounds, judges and scores (event's club coordinator only). */
     void deleteCompetition(Long actingUserId, Long competitionId);
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     CompetitionResponse updateStatus(Long actingUserId, Long competitionId, CompetitionStatus status);
 
     CompetitionResponse getById(Long competitionId);

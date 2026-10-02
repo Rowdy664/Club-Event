@@ -105,7 +105,6 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-<<<<<<< HEAD
     @Transactional
     public void reactivate(Long userId, Long clubId) {
         Club club = getClub(clubId);
@@ -115,8 +114,6 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     @Transactional(readOnly = true)
     public ClubResponse getById(Long clubId, Long viewerId) {
         return toResponseWithCounts(getClub(clubId), viewerId);

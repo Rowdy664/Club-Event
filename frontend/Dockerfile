@@ -26,8 +26,11 @@ RUN npm run build
 ##############################################
 FROM nginx:1.27-alpine AS runtime
 
-# SPA-aware config with an /api + /ws reverse proxy to the backend service.
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Render BACKEND_URL at container startup. Compose uses the internal service
+# hostname; override this default for other deployment environments as needed.
+ENV BACKEND_URL=https://club-event-production.up.railway.app
+ENV NGINX_ENVSUBST_FILTER=^BACKEND_URL$
+COPY nginx.conf /etc/nginx/templates/default.conf.template
 
 # Static assets produced by Vite.
 COPY --from=build /app/dist /usr/share/nginx/html

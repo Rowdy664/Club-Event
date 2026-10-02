@@ -22,7 +22,6 @@ import com.campusconnect.repository.TeamMemberRepository;
 import com.campusconnect.repository.TeamRepository;
 import com.campusconnect.repository.UserRepository;
 import com.campusconnect.security.ClubAccess;
-<<<<<<< HEAD
 import com.campusconnect.service.EmailService;
 import com.campusconnect.service.NotificationService;
 import com.campusconnect.service.QrCodeService;
@@ -39,18 +38,6 @@ import java.security.SecureRandom;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-=======
-import com.campusconnect.service.NotificationService;
-import com.campusconnect.service.QrCodeService;
-import com.campusconnect.service.RegistrationService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -66,14 +53,11 @@ public class RegistrationServiceImpl implements RegistrationService {
             List.of(RegistrationStatus.REGISTERED, RegistrationStatus.CONFIRMED);
     private static final int QR_SIZE = 300;
 
-<<<<<<< HEAD
     /** Ticket-verification OTP policy. */
     private static final int TICKET_OTP_TTL_MINUTES = 10;
     private static final int MAX_TICKET_OTP_ATTEMPTS = 5;
     private static final SecureRandom RANDOM = new SecureRandom();
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     private final RegistrationRepository registrationRepository;
     private final EventRepository eventRepository;
     private final TeamRepository teamRepository;
@@ -82,12 +66,9 @@ public class RegistrationServiceImpl implements RegistrationService {
     private final ClubAccess clubAccess;
     private final QrCodeService qrCodeService;
     private final NotificationService notificationService;
-<<<<<<< HEAD
     private final EmailService emailService;
     private final WhatsAppResolver whatsAppResolver;
     private final PasswordEncoder passwordEncoder;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 
     @Override
     @Transactional
@@ -193,7 +174,6 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     @Transactional
-<<<<<<< HEAD
     public void requestTicketVerification(Long userId, Long registrationId) {
         Registration registration = getRegistration(registrationId);
         requireOwner(registration, userId);
@@ -250,8 +230,6 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     @Transactional
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     public void promoteWaitlist(Long eventId) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new ResourceNotFoundException("Event", "id", eventId));
@@ -366,7 +344,6 @@ public class RegistrationServiceImpl implements RegistrationService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
     }
-<<<<<<< HEAD
 
     private void requireOwner(Registration registration, Long userId) {
         if (registration.getUser() == null || !registration.getUser().getId().equals(userId)) {
@@ -406,6 +383,4 @@ public class RegistrationServiceImpl implements RegistrationService {
                 "Your CampusConnect ticket code for \"" + eventTitle + "\" is " + code
                         + ". It expires in " + TICKET_OTP_TTL_MINUTES + " minutes.");
     }
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 }

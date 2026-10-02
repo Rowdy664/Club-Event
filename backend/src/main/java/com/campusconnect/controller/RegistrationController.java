@@ -4,10 +4,7 @@ import com.campusconnect.common.ApiResponse;
 import com.campusconnect.common.PageRequests;
 import com.campusconnect.common.PageResponse;
 import com.campusconnect.dto.request.RegistrationRequest;
-<<<<<<< HEAD
 import com.campusconnect.dto.request.VerifyTicketRequest;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import com.campusconnect.dto.response.RegistrationResponse;
 import com.campusconnect.security.UserPrincipal;
 import com.campusconnect.service.RegistrationService;
@@ -99,7 +96,6 @@ public class RegistrationController {
                 .contentType(MediaType.IMAGE_PNG)
                 .body(png);
     }
-<<<<<<< HEAD
 
     @PostMapping("/{id}/verify/request")
     @Operation(summary = "Send a one-time code to verify my ticket (email + WhatsApp)")
@@ -118,6 +114,4 @@ public class RegistrationController {
         return ApiResponse.success("Ticket verified.",
                 registrationService.confirmTicketVerification(principal.getId(), id, request.code()));
     }
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 }

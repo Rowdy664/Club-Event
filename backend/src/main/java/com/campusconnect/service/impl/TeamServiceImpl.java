@@ -5,10 +5,6 @@ import com.campusconnect.dto.request.TeamRequest;
 import com.campusconnect.dto.response.TeamMemberResponse;
 import com.campusconnect.dto.response.TeamResponse;
 import com.campusconnect.entity.Event;
-<<<<<<< HEAD
-=======
-import com.campusconnect.entity.Registration;
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import com.campusconnect.entity.Team;
 import com.campusconnect.entity.TeamMember;
 import com.campusconnect.entity.User;
@@ -19,17 +15,10 @@ import com.campusconnect.exception.ForbiddenException;
 import com.campusconnect.exception.ResourceNotFoundException;
 import com.campusconnect.mapper.TeamMapper;
 import com.campusconnect.repository.EventRepository;
-<<<<<<< HEAD
 import com.campusconnect.repository.TeamMemberRepository;
 import com.campusconnect.repository.TeamRepository;
 import com.campusconnect.repository.UserRepository;
 import com.campusconnect.service.EntityPurgeService;
-=======
-import com.campusconnect.repository.RegistrationRepository;
-import com.campusconnect.repository.TeamMemberRepository;
-import com.campusconnect.repository.TeamRepository;
-import com.campusconnect.repository.UserRepository;
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import com.campusconnect.service.TeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -49,11 +38,7 @@ public class TeamServiceImpl implements TeamService {
     private final TeamMemberRepository teamMemberRepository;
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
-<<<<<<< HEAD
     private final EntityPurgeService entityPurgeService;
-=======
-    private final RegistrationRepository registrationRepository;
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 
     @Override
     @Transactional
@@ -164,7 +149,6 @@ public class TeamServiceImpl implements TeamService {
         Team team = getTeam(teamId);
         requireLeader(team, actingUserId);
 
-<<<<<<< HEAD
         // Disband: remove the team and everything tied to it — its registrations
         // (and their attendance/payment rows), competition scores and
         // memberships — in FK order. Previously this blocked whenever any
@@ -172,14 +156,6 @@ public class TeamServiceImpl implements TeamService {
         // and cancellation is a soft delete, so the guard could never clear and
         // disbanding always failed with a 400.
         entityPurgeService.purgeTeam(teamId);
-=======
-        if (!registrationRepository.findByTeamId(teamId).isEmpty()) {
-            throw new BadRequestException(
-                    "This team has registrations. Those registrations must be cancelled before the team can be deleted.");
-        }
-        teamMemberRepository.deleteAll(teamMemberRepository.findByTeamId(teamId));
-        teamRepository.delete(team);
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     }
 
     @Override

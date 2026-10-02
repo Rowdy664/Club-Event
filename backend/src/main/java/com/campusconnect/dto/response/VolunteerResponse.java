@@ -1,6 +1,5 @@
 package com.campusconnect.dto.response;
 
-<<<<<<< HEAD
 import com.campusconnect.entity.enums.VolunteerStatus;
 
 import java.time.Instant;
@@ -22,25 +21,6 @@ public record VolunteerResponse(
         String availability,
         double totalHours,
         boolean volunteerLead,
-=======
-import java.time.Instant;
-
-/**
- * A volunteer enrollment for an event. Task counts summarise the volunteer's workload so the
- * coordinator roster can show progress at a glance.
- */
-public record VolunteerResponse(
-        Long id,
-        Long eventId,
-        String eventTitle,
-        Long userId,
-        String userName,
-        String userEmail,
-        boolean approved,
-        String role,
-        long taskCount,
-        long completedTaskCount,
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
         Instant createdAt
 ) {
 }

@@ -1,21 +1,15 @@
 package com.campusconnect.exception;
 
 import com.campusconnect.common.ApiResponse;
-<<<<<<< HEAD
 import jakarta.persistence.PersistenceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
-<<<<<<< HEAD
 import org.springframework.transaction.TransactionSystemException;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,11 +26,8 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-<<<<<<< HEAD
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiResponse<Void>> handleNotFound(ResourceNotFoundException ex) {
         return build(HttpStatus.NOT_FOUND, ex.getMessage(), null);
@@ -68,7 +59,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ApiResponse<Void>> handleDataIntegrity(DataIntegrityViolationException ex) {
-<<<<<<< HEAD
         log.warn("Data integrity violation: {}", rootMessage(ex));
         return build(HttpStatus.CONFLICT, "Operation violates a data constraint (possibly a duplicate).", null);
     }
@@ -86,11 +76,6 @@ public class GlobalExceptionHandler {
                 "The operation could not be completed because of related data. Please try again.", null);
     }
 
-=======
-        return build(HttpStatus.CONFLICT, "Operation violates a data constraint (possibly a duplicate).", null);
-    }
-
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     @ExceptionHandler({AccessDeniedException.class})
     public ResponseEntity<ApiResponse<Void>> handleAccessDenied(AccessDeniedException ex) {
         return build(HttpStatus.FORBIDDEN, "You do not have permission to perform this action.", null);
@@ -106,7 +91,6 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.TOO_MANY_REQUESTS, ex.getMessage(), null);
     }
 
-<<<<<<< HEAD
     @ExceptionHandler(com.campusconnect.service.payment.PaymentGatewayException.class)
     public ResponseEntity<ApiResponse<Void>> handlePaymentGateway(
             com.campusconnect.service.payment.PaymentGatewayException ex) {
@@ -122,17 +106,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse<Void>> handleGeneric(Exception ex) {
         // Log the full stack trace so the real cause of a 500 is never invisible in the server logs.
         log.error("Unhandled exception: {}", rootMessage(ex), ex);
-=======
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiResponse<Void>> handleGeneric(Exception ex) {
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
         return build(HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred.", null);
     }
 
     private ResponseEntity<ApiResponse<Void>> build(HttpStatus status, String message, Object errors) {
         return ResponseEntity.status(status).body(ApiResponse.error(message, errors));
     }
-<<<<<<< HEAD
 
     /** Deepest cause message, for concise one-line logging (the stack trace carries the rest). */
     private static String rootMessage(Throwable ex) {
@@ -142,6 +121,4 @@ public class GlobalExceptionHandler {
         }
         return cause.getClass().getSimpleName() + ": " + cause.getMessage();
     }
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 }

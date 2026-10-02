@@ -2,10 +2,7 @@ package com.campusconnect.controller;
 
 import com.campusconnect.common.ApiResponse;
 import com.campusconnect.dto.request.AnnouncementRequest;
-<<<<<<< HEAD
 import com.campusconnect.dto.request.AnnouncementUpdateRequest;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import com.campusconnect.dto.response.AnnouncementResponse;
 import com.campusconnect.security.UserPrincipal;
 import com.campusconnect.service.AnnouncementService;
@@ -20,10 +17,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.PutMapping;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -49,7 +43,6 @@ public class AnnouncementController {
                 announcementService.create(principal.getId(), request));
     }
 
-<<<<<<< HEAD
     @PutMapping("/{id}")
     @SecurityRequirement(name = "bearerAuth")
     @Operation(summary = "Edit an announcement (author or relevant coordinator)")
@@ -60,8 +53,6 @@ public class AnnouncementController {
                 announcementService.update(principal.getId(), id, request));
     }
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     @DeleteMapping("/{id}")
     @SecurityRequirement(name = "bearerAuth")
     @Operation(summary = "Delete an announcement (author or relevant coordinator)")

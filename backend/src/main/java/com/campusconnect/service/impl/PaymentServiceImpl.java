@@ -1,11 +1,8 @@
 package com.campusconnect.service.impl;
 
 import com.campusconnect.dto.request.PaymentInitiateRequest;
-<<<<<<< HEAD
 import com.campusconnect.dto.request.PaymentVerifyRequest;
 import com.campusconnect.dto.response.PaymentConfigResponse;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import com.campusconnect.dto.response.PaymentResponse;
 import com.campusconnect.entity.Event;
 import com.campusconnect.entity.Payment;
@@ -24,7 +21,6 @@ import com.campusconnect.repository.PaymentRepository;
 import com.campusconnect.repository.RegistrationRepository;
 import com.campusconnect.repository.UserRepository;
 import com.campusconnect.security.ClubAccess;
-<<<<<<< HEAD
 import com.campusconnect.service.EmailService;
 import com.campusconnect.service.NotificationService;
 import com.campusconnect.service.PaymentService;
@@ -36,14 +32,6 @@ import com.campusconnect.service.payment.GatewayVerifyRequest;
 import com.campusconnect.service.payment.PaymentGateway;
 import com.campusconnect.service.payment.PaymentGatewayResolver;
 import com.campusconnect.service.whatsapp.WhatsAppResolver;
-=======
-import com.campusconnect.service.NotificationService;
-import com.campusconnect.service.PaymentService;
-import com.campusconnect.service.payment.GatewayChargeRequest;
-import com.campusconnect.service.payment.GatewayChargeResult;
-import com.campusconnect.service.payment.PaymentGateway;
-import com.campusconnect.service.payment.PaymentGatewayResolver;
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import com.lowagie.text.Document;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
@@ -54,26 +42,19 @@ import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import lombok.RequiredArgsConstructor;
-<<<<<<< HEAD
 import lombok.extern.slf4j.Slf4j;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.awt.Color;
 import java.io.ByteArrayOutputStream;
-<<<<<<< HEAD
 import java.io.IOException;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
-<<<<<<< HEAD
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -85,26 +66,16 @@ import java.util.zip.ZipOutputStream;
 
 @Service
 @Slf4j
-=======
-import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
-
-@Service
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 @RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
 
     private static final DateTimeFormatter RECEIPT_DATE_FMT =
             DateTimeFormatter.ofPattern("MMMM d, yyyy 'at' h:mm a", Locale.ENGLISH).withZone(ZoneId.of("UTC"));
-<<<<<<< HEAD
     /** For event schedule times, which are stored as local date-times (no zone). */
     private static final DateTimeFormatter EVENT_DATE_FMT =
             DateTimeFormatter.ofPattern("MMMM d, yyyy 'at' h:mm a", Locale.ENGLISH);
     /** Ticket QR size in px — matches the QR served by the registration ticket endpoint. */
     private static final int QR_SIZE = 300;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 
     private final PaymentRepository paymentRepository;
     private final EventRepository eventRepository;
@@ -113,17 +84,13 @@ public class PaymentServiceImpl implements PaymentService {
     private final ClubAccess clubAccess;
     private final PaymentGatewayResolver gatewayResolver;
     private final NotificationService notificationService;
-<<<<<<< HEAD
     private final QrCodeService qrCodeService;
     private final EmailService emailService;
     private final WhatsAppResolver whatsAppResolver;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 
     @Value("${app.payment.currency:INR}")
     private String currency;
 
-<<<<<<< HEAD
     @Value("${app.frontend.base-url:http://localhost:5173}")
     private String frontendBaseUrl;
 
@@ -136,8 +103,6 @@ public class PaymentServiceImpl implements PaymentService {
         return new PaymentConfigResponse(gateway.provider(), clientCheckout, publicKey, currency);
     }
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     @Override
     @Transactional
     public PaymentResponse initiate(Long userId, PaymentInitiateRequest request) {
@@ -168,7 +133,6 @@ public class PaymentServiceImpl implements PaymentService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 
         PaymentGateway gateway = gatewayResolver.resolve();
-<<<<<<< HEAD
 
         // Re-use an in-flight PENDING charge from the same provider (e.g. a Razorpay order that was
         // already created) so a repeated "Pay" click re-opens the same order rather than stacking
@@ -184,10 +148,6 @@ public class PaymentServiceImpl implements PaymentService {
         }
 
         String receiptNumber = generateReceiptNumber();
-=======
-        String receiptNumber = generateReceiptNumber();
-
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
         Payment payment = Payment.builder()
                 .user(user)
                 .event(event)
@@ -207,7 +167,6 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setStatus(result.status());
 
         if (result.status() == PaymentStatus.SUCCESS) {
-<<<<<<< HEAD
             // Synchronous provider (mock): settle right away.
             settleSuccessfulPayment(payment, registration);
         } else if (result.status() == PaymentStatus.FAILED) {
@@ -362,26 +321,6 @@ public class PaymentServiceImpl implements PaymentService {
                 "Payment failed",
                 "Your payment for " + event.getTitle() + " could not be processed. Please try again.",
                 "/events/" + event.getId());
-=======
-            payment.setPaidAt(Instant.now());
-            if (registration.getStatus() == RegistrationStatus.REGISTERED) {
-                registration.setStatus(RegistrationStatus.CONFIRMED);
-                registrationRepository.save(registration);
-            }
-            notificationService.notifyUser(userId, NotificationType.PAYMENT_UPDATE,
-                    "Payment successful",
-                    "Your payment of " + currency + " " + event.getFee() + " for " + event.getTitle()
-                            + " was successful. Receipt: " + receiptNumber,
-                    "/events/" + event.getId());
-        } else {
-            notificationService.notifyUser(userId, NotificationType.PAYMENT_UPDATE,
-                    "Payment failed",
-                    "Your payment for " + event.getTitle() + " could not be processed. Please try again.",
-                    "/events/" + event.getId());
-        }
-
-        return PaymentMapper.toResponse(paymentRepository.save(payment));
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     }
 
     @Override
@@ -482,7 +421,6 @@ public class PaymentServiceImpl implements PaymentService {
         return buildReceiptPdf(payment);
     }
 
-<<<<<<< HEAD
     @Override
     @Transactional(readOnly = true)
     public byte[] renderReceiptsZip(Long actingUserId, List<Long> paymentIds) {
@@ -548,8 +486,6 @@ public class PaymentServiceImpl implements PaymentService {
         return candidate;
     }
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     private byte[] buildReceiptPdf(Payment payment) {
         Document document = new Document(PageSize.A4, 56, 56, 64, 56);
         ByteArrayOutputStream out = new ByteArrayOutputStream();

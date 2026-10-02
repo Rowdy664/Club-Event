@@ -12,10 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.DeleteMapping;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,7 +59,6 @@ public class FeedbackController {
     public ApiResponse<FeedbackSummary> summary(@PathVariable Long eventId) {
         return ApiResponse.success(feedbackService.eventSummary(eventId));
     }
-<<<<<<< HEAD
 
     @DeleteMapping("/{id}")
     @SecurityRequirement(name = "bearerAuth")
@@ -72,6 +68,4 @@ public class FeedbackController {
         feedbackService.delete(principal.getId(), id);
         return ApiResponse.message("Feedback deleted");
     }
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 }

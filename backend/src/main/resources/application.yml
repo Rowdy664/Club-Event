@@ -1,18 +1,12 @@
 server:
-<<<<<<< HEAD
   # Render provides PORT automatically; SERVER_PORT remains useful for local runs.
   port: ${PORT:${SERVER_PORT:8080}}
+  address: 0.0.0.0
   error:
     # Only echo exception messages / binding errors when explicitly requested (?message=…),
     # so production responses don't leak internals. Flip to 'always' locally if you want them.
     include-message: on_param
     include-binding-errors: on_param
-=======
-  port: ${SERVER_PORT:8080}
-  error:
-    include-message: always
-    include-binding-errors: always
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 
 spring:
   application:
@@ -34,10 +28,7 @@ spring:
         format_sql: true
         jdbc:
           time_zone: UTC
-<<<<<<< HEAD
     database-platform: ${SPRING_JPA_DATABASE_PLATFORM:org.hibernate.dialect.MySQLDialect}
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 
   servlet:
     multipart:
@@ -61,15 +52,10 @@ spring:
 # ---- Application specific configuration ----
 app:
   jwt:
-<<<<<<< HEAD
     # NEVER commit a real secret. The default below is an obvious dev-only placeholder;
     # ALWAYS override JWT_SECRET in any shared/production environment (min 32 bytes / 256 bits).
     # Generate one with:  openssl rand -base64 48
     secret: ${JWT_SECRET:dev-only-insecure-signing-key-change-me-in-production-0123456789}
-=======
-    # NEVER commit a real secret. Override JWT_SECRET in production (min 32 bytes / 256 bits).
-    secret: BcQraUHV/s+MQZolSUk+iGBXqNx8uqz3R8R3rSZyTC5DeJlBU4rawIlM2NUY4XoVI+aE8TmehceKJ5F3NVUuug==
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     access-token-expiration-ms: ${JWT_ACCESS_EXPIRATION:3600000}      # 1 hour
     refresh-token-expiration-ms: ${JWT_REFRESH_EXPIRATION:604800000}  # 7 days
     issuer: campusconnect
@@ -86,18 +72,13 @@ app:
 
   seed:
     # Populates realistic demo data on first startup when the DB is empty.
-<<<<<<< HEAD
     # Secure default is OFF — opt in with SEED_ENABLED=true (e.g. for the local demo).
     enabled: ${SEED_ENABLED:false}
-=======
-    enabled: ${SEED_ENABLED:true}
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 
   # Payment gateway abstraction. Provider credentials must come from env, never hardcoded.
   payment:
     provider: ${PAYMENT_PROVIDER:mock}
     currency: ${PAYMENT_CURRENCY:INR}
-<<<<<<< HEAD
     # Razorpay (test mode uses rzp_test_* keys). Credentials come from the environment only and
     # are never committed; the secret key never leaves the server. Selected when provider=razorpay.
     razorpay:
@@ -119,8 +100,6 @@ app:
       auth-token: ${TWILIO_AUTH_TOKEN:}
       from: ${TWILIO_WHATSAPP_FROM:}             # e.g. whatsapp:+14155238886 (Twilio sandbox/sender)
       base-url: ${TWILIO_BASE_URL:https://api.twilio.com}
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 
   # File storage abstraction. 'local' writes under a directory and serves via /api/files;
   # 's3' targets AWS S3 or any S3-compatible store. Credentials come from env, never hardcoded.

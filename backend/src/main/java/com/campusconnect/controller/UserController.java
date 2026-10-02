@@ -4,11 +4,8 @@ import com.campusconnect.common.ApiResponse;
 import com.campusconnect.dto.request.ChangePasswordRequest;
 import com.campusconnect.dto.request.UpdateProfileRequest;
 import com.campusconnect.dto.response.UserResponse;
-<<<<<<< HEAD
 import com.campusconnect.entity.enums.Role;
 import com.campusconnect.exception.ForbiddenException;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import com.campusconnect.security.UserPrincipal;
 import com.campusconnect.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,7 +52,6 @@ public class UserController {
         return ApiResponse.message("Password changed successfully.");
     }
 
-<<<<<<< HEAD
     @Operation(summary = "Get a user's profile by id (self or admin only)")
     @GetMapping("/{id}")
     public ApiResponse<UserResponse> getById(@AuthenticationPrincipal UserPrincipal principal,
@@ -63,11 +59,6 @@ public class UserController {
         if (!id.equals(principal.getId()) && principal.getRole() != Role.ADMIN) {
             throw new ForbiddenException("You can only view your own profile.");
         }
-=======
-    @Operation(summary = "Get a user's public profile by id")
-    @GetMapping("/{id}")
-    public ApiResponse<UserResponse> getById(@PathVariable Long id) {
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
         return ApiResponse.success(userService.getById(id));
     }
 }

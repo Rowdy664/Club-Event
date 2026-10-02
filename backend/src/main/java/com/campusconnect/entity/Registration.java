@@ -64,7 +64,6 @@ public class Registration extends BaseEntity {
     /** Opaque unique code embedded in the QR ticket. Never contains personal data. */
     @Column(name = "ticket_code", nullable = false, length = 64)
     private String ticketCode;
-<<<<<<< HEAD
 
     // ---- Ticket verification (OTP) ------------------------------------------------
     // Lets an attendee confirm a ticket is genuinely theirs via a one-time code sent to
@@ -92,6 +91,4 @@ public class Registration extends BaseEntity {
     @Column(name = "ticket_otp_attempts", nullable = false)
     @Builder.Default
     private int ticketOtpAttempts = 0;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 }

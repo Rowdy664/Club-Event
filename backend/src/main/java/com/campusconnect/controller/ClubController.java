@@ -83,7 +83,6 @@ public class ClubController {
         return ApiResponse.message("Club deactivated.");
     }
 
-<<<<<<< HEAD
     @Operation(summary = "Reactivate a previously-deactivated club (club coordinator only)")
     @PostMapping("/{id}/reactivate")
     public ApiResponse<Void> reactivate(@AuthenticationPrincipal UserPrincipal principal, @PathVariable Long id) {
@@ -91,8 +90,6 @@ public class ClubController {
         return ApiResponse.message("Club reactivated.");
     }
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     @Operation(summary = "List members of a club (active members only)")
     @GetMapping("/{id}/members")
     public ApiResponse<List<ClubMemberResponse>> members(@AuthenticationPrincipal UserPrincipal principal,

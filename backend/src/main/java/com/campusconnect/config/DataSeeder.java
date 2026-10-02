@@ -52,10 +52,7 @@ public class DataSeeder implements CommandLineRunner {
     @Transactional
     public void run(String... args) {
         if (userRepository.count() > 0) {
-<<<<<<< HEAD
-=======
                         ensureDemoAdmin();
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
             log.info("Seed skipped: database already contains users.");
             return;
         }
@@ -73,13 +70,9 @@ public class DataSeeder implements CommandLineRunner {
                 Role.STUDENT, "CC2023102", "Mechanical", "+91-9000000004");
         User student3 = createUser("Sara Khan", "sara@campusconnect.local",
                 Role.STUDENT, "CC2023155", "Information Technology", "+91-9000000005");
-<<<<<<< HEAD
         User volunteer = createUser("Karthik Menon", "volunteer@campusconnect.local",
                 Role.VOLUNTEER, "CC2023200", "Computer Science", "+91-9000000006");
         userRepository.saveAll(java.util.List.of(admin, coordinator, member, student, student2, student3, volunteer));
-=======
-        userRepository.saveAll(java.util.List.of(admin, coordinator, member, student, student2, student3));
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 
         // Give every demo account an all-on notification preference row (each with its own
         // unsubscribe token), matching what real users receive at registration.
@@ -89,12 +82,8 @@ public class DataSeeder implements CommandLineRunner {
                 NotificationPreference.defaultsFor(member),
                 NotificationPreference.defaultsFor(student),
                 NotificationPreference.defaultsFor(student2),
-<<<<<<< HEAD
                 NotificationPreference.defaultsFor(student3),
                 NotificationPreference.defaultsFor(volunteer)
-=======
-                NotificationPreference.defaultsFor(student3)
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
         ));
 
         Club coding = createClub("Coding Club",
@@ -216,10 +205,7 @@ public class DataSeeder implements CommandLineRunner {
                     Coordinator : coordinator@campusconnect.local
                     Club member : member@campusconnect.local
                     Student     : student@campusconnect.local
-<<<<<<< HEAD
                     Volunteer   : volunteer@campusconnect.local
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
                   Clubs: 3  |  Events: 5""", DEMO_PASSWORD);
     }
 
@@ -238,8 +224,6 @@ public class DataSeeder implements CommandLineRunner {
                 .build();
     }
 
-<<<<<<< HEAD
-=======
         private void ensureDemoAdmin() {
                 if (userRepository.findByEmail("admin@campusconnect.local").isEmpty()) {
                         User admin = userRepository.save(createUser("Platform Admin", "admin@campusconnect.local",
@@ -249,7 +233,6 @@ public class DataSeeder implements CommandLineRunner {
                 }
         }
 
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     private Club createClub(String name, String description, String category, User createdBy) {
         return Club.builder()
                 .name(name)

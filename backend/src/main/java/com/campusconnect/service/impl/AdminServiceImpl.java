@@ -32,10 +32,7 @@ import com.campusconnect.service.AdminService;
 import com.campusconnect.service.AuditService;
 import com.campusconnect.service.CertificateService;
 import com.campusconnect.service.EntityPurgeService;
-<<<<<<< HEAD
 import jakarta.persistence.PersistenceException;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -143,7 +140,6 @@ public class AdminServiceImpl implements AdminService {
         }
         String label = user.getFullName();
         Long deletedId = user.getId();
-<<<<<<< HEAD
         // Cascade-purge the user and every dependent row (registrations, memberships,
         // certificates, payments, teams they lead, volunteer profile, etc.) in
         // dependency order. The schema has no ON DELETE CASCADE, so a plain delete
@@ -156,15 +152,6 @@ public class AdminServiceImpl implements AdminService {
         } catch (DataIntegrityViolationException | PersistenceException ex) {
             throw new ConflictException(
                     "This user could not be deleted because related data is still referenced elsewhere.");
-=======
-        try {
-            userRepository.delete(user);
-            userRepository.flush();
-        } catch (DataIntegrityViolationException ex) {
-            throw new ConflictException(
-                    "This user has related records (clubs, events or registrations) and cannot be deleted. " +
-                    "Disable the account instead.");
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
         }
         auditService.record(actingAdminId, actorName(actingAdminId), AuditAction.USER_DELETED,
                 "USER", deletedId, label, null);
@@ -203,11 +190,7 @@ public class AdminServiceImpl implements AdminService {
         // constraint blocks the delete (previously surfaced as a confusing 409).
         try {
             entityPurgeService.purgeClub(clubId);
-<<<<<<< HEAD
         } catch (DataIntegrityViolationException | PersistenceException ex) {
-=======
-        } catch (DataIntegrityViolationException ex) {
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
             throw new ConflictException(
                     "This club could not be deleted because related data is still referenced elsewhere.");
         }
@@ -251,11 +234,7 @@ public class AdminServiceImpl implements AdminService {
         // before removing the event (no ON DELETE CASCADE in the schema).
         try {
             entityPurgeService.purgeEvent(eventId);
-<<<<<<< HEAD
         } catch (DataIntegrityViolationException | PersistenceException ex) {
-=======
-        } catch (DataIntegrityViolationException ex) {
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
             throw new ConflictException(
                     "This event could not be deleted because related data is still referenced elsewhere.");
         }

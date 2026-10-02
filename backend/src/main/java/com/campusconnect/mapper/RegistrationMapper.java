@@ -5,10 +5,7 @@ import com.campusconnect.entity.Event;
 import com.campusconnect.entity.Registration;
 import com.campusconnect.entity.Team;
 import com.campusconnect.entity.User;
-<<<<<<< HEAD
 import com.campusconnect.entity.enums.RegistrationStatus;
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
 
 public final class RegistrationMapper {
 
@@ -22,7 +19,6 @@ public final class RegistrationMapper {
         Event event = registration.getEvent();
         User user = registration.getUser();
         Team team = registration.getTeam();
-<<<<<<< HEAD
 
         RegistrationStatus status = registration.getStatus();
         boolean paidEvent = event != null && event.isPaidEvent()
@@ -32,8 +28,6 @@ public final class RegistrationMapper {
         // only after payment has cleared (which flips the registration to CONFIRMED).
         boolean ticketReady = active && (!paidEvent || status == RegistrationStatus.CONFIRMED);
 
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
         return new RegistrationResponse(
                 registration.getId(),
                 event != null ? event.getId() : null,
@@ -43,17 +37,12 @@ public final class RegistrationMapper {
                 team != null ? team.getId() : null,
                 team != null ? team.getName() : null,
                 registration.getType(),
-<<<<<<< HEAD
                 status,
                 registration.getTicketCode(),
                 paidEvent,
                 ticketReady,
                 registration.isTicketVerified(),
                 event != null ? event.getStatus() : null,
-=======
-                registration.getStatus(),
-                registration.getTicketCode(),
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
                 registration.getCreatedAt()
         );
     }

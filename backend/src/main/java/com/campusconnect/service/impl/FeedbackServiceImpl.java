@@ -69,18 +69,13 @@ public class FeedbackServiceImpl implements FeedbackService {
     public List<FeedbackResponse> eventFeedback(Long actingUserId, Long eventId) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new ResourceNotFoundException("Event", "id", eventId));
-<<<<<<< HEAD
         clubAccess.requireAdminOrCoordinator(event.getClub().getId(), actingUserId);
-=======
-        clubAccess.requireCoordinator(event.getClub().getId(), actingUserId);
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
         return feedbackRepository.findByEventId(eventId).stream()
                 .map(FeedbackMapper::toResponse)
                 .toList();
     }
 
     @Override
-<<<<<<< HEAD
     @Transactional
     public void delete(Long actingUserId, Long feedbackId) {
         Feedback feedback = feedbackRepository.findById(feedbackId)
@@ -95,8 +90,6 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     @Transactional(readOnly = true)
     public FeedbackSummary eventSummary(Long eventId) {
         if (!eventRepository.existsById(eventId)) {

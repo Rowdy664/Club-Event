@@ -1,11 +1,11 @@
-# CampusConnect — full stack (MySQL + Spring Boot API + nginx/React SPA)
+# CampusConnect ΓÇö full stack (MySQL + Spring Boot API + nginx/React SPA)
 #
 # Quick start:
 #   1) cp .env.example .env      # then edit secrets in .env
 #   2) docker compose up --build
 #   3) open http://localhost:${FRONTEND_PORT:-8081}
 #
-# Secrets (DB password, JWT secret) are read from .env — never hardcoded here.
+# Secrets (DB password, JWT secret) are read from .env ΓÇö never hardcoded here.
 # The ":?" guards fail fast with a helpful message if .env is missing.
 
 name: campusconnect
@@ -17,21 +17,13 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-campusconnect}
-<<<<<<< HEAD
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-tharun1437}
-=======
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:tharun1437}
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
     ports:
       - "${MYSQL_PORT:-3306}:3306"
     volumes:
       - mysql-data:/var/lib/mysql
     healthcheck:
-<<<<<<< HEAD
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-tharun1437}"]
-=======
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
       interval: 10s
       timeout: 5s
       retries: 10
@@ -52,29 +44,18 @@ services:
       # Point the app at the mysql service on the compose network.
       SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/${MYSQL_DATABASE:-campusconnect}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
       SPRING_DATASOURCE_USERNAME: "root"
-<<<<<<< HEAD
       SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD:-tharun1437}
       JPA_DDL_AUTO: ${JPA_DDL_AUTO:-update}
       JPA_SHOW_SQL: ${JPA_SHOW_SQL:-false}
-      # Security-critical — provided via .env, never hardcoded. Fails fast if unset.
-      JWT_SECRET: 5a7e0a1adfb96f8dd23b9e2418ed1c97bcbdc8af4871a299411ea431d59457d346e9987e9e63465aaee30c975893e12d5774479a48ed879f675fb236349acc1a
-=======
-      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD:tharun1437}
-      JPA_DDL_AUTO: ${JPA_DDL_AUTO:-update}
-      JPA_SHOW_SQL: ${JPA_SHOW_SQL:-false}
-      # Security-critical — must be provided via .env (min 32 bytes / base64).
-      JWT_SECRET: BcQraUHV/s+MQZolSUk+iGBXqNx8uqz3R8R3rSZyTC5DeJlBU4rawIlM2NUY4XoVI+aE8TmehceKJ5F3NVUuug==
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
+      # Security-critical ΓÇö provided via .env, never hardcoded. Fails fast if unset.
+      JWT_SECRET: "${JWT_SECRET:?Set JWT_SECRET in .env (generate with openssl rand -base64 48)}"
       JWT_ACCESS_EXPIRATION: ${JWT_ACCESS_EXPIRATION:-3600000}
       JWT_REFRESH_EXPIRATION: ${JWT_REFRESH_EXPIRATION:-604800000}
       # Browser origin(s) allowed to call the API directly.
       CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:8081,http://localhost:5173,http://localhost:3000}
       FRONTEND_BASE_URL: ${FRONTEND_BASE_URL:-http://localhost:8081}
-<<<<<<< HEAD
       # Demo data incl. a demo admin with a known password. Fine for the local demo
       # stack; set SEED_ENABLED=false for any real deployment.
-=======
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
       SEED_ENABLED: ${SEED_ENABLED:-true}
       # Mail is optional; when disabled the app logs notifications instead of sending.
       MAIL_ENABLED: ${MAIL_ENABLED:-false}
@@ -83,8 +64,7 @@ services:
       MAIL_USERNAME: ${MAIL_USERNAME:-}
       MAIL_PASSWORD: ${MAIL_PASSWORD:-}
       MAIL_FROM: ${MAIL_FROM:-no-reply@campusconnect.local}
-      # Payment gateway abstraction — credentials (if any) come from env, never code.
-<<<<<<< HEAD
+      # Payment gateway abstraction ΓÇö credentials (if any) come from env, never code.
       PAYMENT_PROVIDER: ${PAYMENT_PROVIDER:-razorpay}
       PAYMENT_CURRENCY: ${PAYMENT_CURRENCY:-INR}
       # Real card/UPI payments via Razorpay activate ONLY when PAYMENT_PROVIDER=razorpay
@@ -105,10 +85,6 @@ services:
       TWILIO_AUTH_TOKEN: ${TWILIO_AUTH_TOKEN:-}
       TWILIO_WHATSAPP_FROM: ${TWILIO_WHATSAPP_FROM:-}
       TWILIO_BASE_URL: ${TWILIO_BASE_URL:-https://api.twilio.com}
-=======
-      PAYMENT_PROVIDER: ${PAYMENT_PROVIDER:-mock}
-      PAYMENT_CURRENCY: ${PAYMENT_CURRENCY:-INR}
->>>>>>> f117f25f2db8e7e1d3024b22a6e4d99cb85b01e6
       # AI is interface-only until a key is supplied.
       AI_ENABLED: ${AI_ENABLED:-false}
       AI_PROVIDER: ${AI_PROVIDER:-openai}
@@ -129,6 +105,8 @@ services:
         # Same-origin defaults; nginx proxies these to the backend service.
         VITE_API_BASE_URL: ${VITE_API_BASE_URL:-/api}
         VITE_WS_URL: ${VITE_WS_URL:-/ws}
+    environment:
+      BACKEND_URL: ${BACKEND_URL:-http://backend:8080}
     restart: unless-stopped
     depends_on:
       backend:
