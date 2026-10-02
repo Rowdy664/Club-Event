@@ -26,10 +26,10 @@ RUN npm run build
 ##############################################
 FROM nginx:1.27-alpine AS runtime
 
-# Render BACKEND_URL at container startup. Compose uses the internal service
+# Render API_UPSTREAM_ORIGIN at container startup. Compose uses the internal service
 # hostname; override this default for other deployment environments as needed.
-ENV BACKEND_URL=https://club-event-production.up.railway.app
-ENV NGINX_ENVSUBST_FILTER=^BACKEND_URL$
+ENV API_UPSTREAM_ORIGIN=https://club-event-production.up.railway.app
+ENV NGINX_ENVSUBST_FILTER=^API_UPSTREAM_ORIGIN$
 COPY nginx.conf /etc/nginx/templates/default.conf.template
 
 # Static assets produced by Vite.
